@@ -111,11 +111,11 @@ char associativity(char op)
 	{
 		if (op == R_L[i])
 		{
-			return 'R_L';
+			return 'R';
 		}
 	}
 
-	return 'L_R';
+	return 'L';
 }
 
 void operator_handler(char op, Stack &amps)
@@ -146,7 +146,7 @@ void operator_handler(char op, Stack &amps)
 		}
 		else
 		{
-			if (associativity(op) == 'R_L')
+			if (associativity(op) == 'R')
 			{
 				s.push(op);
 			}
