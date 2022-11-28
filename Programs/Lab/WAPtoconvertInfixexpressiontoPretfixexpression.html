@@ -9,7 +9,7 @@ class Stack
 	int top = -1;
 
 public:
-	void push(char x)
+	void push(char ch)
 	{
 		if (top == 99)
 		{
@@ -18,7 +18,7 @@ public:
 		else
 		{
 			top++;
-			a[top] = x;
+			a[top] = ch;
 		}
 	}
 
@@ -32,21 +32,6 @@ public:
 		{
 			cout &lt&lt a[top];
 			top--;
-		}
-	}
-
-	void reverse()
-	{
-		char temp[100];
-
-		for (int i = 0; i &lt= top; i++)
-		{
-			temp[i] = a[i];
-		}
-
-		for (int i = 0; i &lt= top; i++)
-		{
-			a[i] = temp[top - i];
 		}
 	}
 
@@ -65,14 +50,6 @@ public:
 	void remove_top()
 	{
 		top--;
-	}
-
-	void show()
-	{
-		for (int i = 0; i &lt strlen(a); i++)
-		{
-			cout &lt&lt a[i];
-		}
 	}
 };
 
@@ -214,11 +191,10 @@ int main()
 		}
 	}
 
-	s.reverse();
-
 	while (s.TOS() != NULL)
 	{
-		s.pop();
+		storage.push(s.TOS());
+		s.remove_top();
 	}
 
 	while (storage.TOS() != NULL)
