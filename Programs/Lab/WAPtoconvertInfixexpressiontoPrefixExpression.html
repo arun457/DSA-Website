@@ -1,4 +1,6 @@
-<!doctype html> <html lang="en"> <meta http-equiv="content-type" content="text/html;charset=utf-8" /> <head>  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link href="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/bootstrap.min.css" rel="stylesheet" /><link href="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/MyStyle.css" rel="stylesheet" /><link rel="stylesheet" href="https://arun457.github.io/Dependencies-Server/DSA-Website/css/prism.css" type="text/css"><link rel="shortcut icon" href="https://arun457.github.io/Dependencies-Server/DSA-Website/images/favicon.ico" type="image/x-icon"><title>Code</title> </head> <body> <div class="p-3"> <ul class="nav nav-tabs" id="myTab" role="tablist"> <li class="nav-item" role="presentation"> <a class="nav-link active" id="code-tab" data-toggle="tab" href="#code" role="tab" aria-controls="Outlines"aria-selected="true">Code</a> </li> <!--Here1-->     <!--Here2--> <li class="nav-item" role="presentation"> <a class="nav-link" id="video-tab" data-toggle="tab" href="#video" role="tab" aria-controls="video" aria-selected="false">Video</a> </li> </ul> <div class="tab-content" id="myTabContent"> <div class="tab-pane fade show active" id="code" role="tabpanel" aria-labelledby="code-tab"> <pre><code class="language-cpp">#include &ltiostream&gt
+<!doctype html> <html lang="en"> <meta http-equiv="content-type" content="text/html;charset=utf-8" /> <head>  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link href="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/bootstrap.min.css" rel="stylesheet" /><link href="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/MyStyle.css" rel="stylesheet" /><link rel="stylesheet" href="https://arun457.github.io/Dependencies-Server/DSA-Website/css/prism.css" type="text/css"><link rel="shortcut icon" href="https://arun457.github.io/Dependencies-Server/DSA-Website/images/favicon.ico" type="image/x-icon"><title>Code</title> </head> <body> <div class="p-3"> <ul class="nav nav-tabs" id="myTab" role="tablist"> <li class="nav-item" role="presentation"> <a class="nav-link active" id="code-tab" data-toggle="tab" href="#code" role="tab" aria-controls="Outlines"aria-selected="true">Code</a> </li> <!--Here1-->     <!--Here2--> <li class="nav-item" role="presentation"> <a class="nav-link" id="video-tab" data-toggle="tab" href="#video" role="tab" aria-controls="video" aria-selected="false">Video</a> </li> </ul> <div class="tab-content" id="myTabContent"> <div class="tab-pane fade show active" id="code" role="tabpanel" aria-labelledby="code-tab"> <pre><code class="language-cpp">// WAP to convert Infix expression to Prefix Expression.
+
+#include &ltiostream&gt
 #include &ltstdlib.h&gt
 #include &ltcstring&gt
 using namespace std;
@@ -52,8 +54,6 @@ public:
 		top--;
 	}
 };
-
-Stack s, storage;
 
 bool isoperator(char ch)
 {
@@ -120,7 +120,7 @@ char associativity(char op)
 	return 'L';
 }
 
-void operator_handler(char op)
+void operator_handler(char op, Stack &amps, Stack &ampstorage)
 {
 	if (op == ')')
 	{
@@ -146,7 +146,7 @@ void operator_handler(char op)
 		{
 			storage.push(s.TOS());
 			s.remove_top();
-			operator_handler(op);
+			operator_handler(op, s, storage);
 		}
 		else
 		{
@@ -158,7 +158,7 @@ void operator_handler(char op)
 			{
 				storage.push(s.TOS());
 				s.remove_top();
-				operator_handler(op);
+				s.push(op);
 			}
 		}
 	}
@@ -168,6 +168,7 @@ int main()
 {
 	system("CLS");
 
+	Stack s, storage;
 	char *expression;
 	int len;
 
@@ -175,7 +176,7 @@ int main()
 	cin &gt&gt expression;
 	expression = strrev(expression);
 
-	cout &lt&lt "\nThe Pretfix Expression is: ";
+	cout &lt&lt "\nThe Prefix Expression is: ";
 
 	len = strlen(expression);
 
@@ -183,7 +184,7 @@ int main()
 	{
 		if (isoperator(expression[i]))
 		{
-			operator_handler(expression[i]);
+			operator_handler(expression[i], s, storage);
 		}
 		else
 		{
