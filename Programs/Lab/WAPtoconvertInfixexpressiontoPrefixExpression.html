@@ -1,4 +1,4 @@
-<!doctype html> <html lang="en"> <meta http-equiv="content-type" content="text/html;charset=utf-8" /> <head>  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link href="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/bootstrap.min.css" rel="stylesheet" /><link href="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/MyStyle.css" rel="stylesheet" /><link rel="stylesheet" href="https://arun457.github.io/Dependencies-Server/DSA-Website/css/prism.css" type="text/css"><link rel="shortcut icon" href="https://arun457.github.io/Dependencies-Server/DSA-Website/images/favicon.ico" type="image/x-icon"><title>Code</title> </head> <body> <div class="p-3"> <ul class="nav nav-tabs" id="myTab" role="tablist"> <li class="nav-item" role="presentation"> <a class="nav-link active" id="code-tab" data-toggle="tab" href="#code" role="tab" aria-controls="Outlines"aria-selected="true">Code</a> </li> <!--Here1-->     <!--Here2--> <li class="nav-item" role="presentation"> <a class="nav-link" id="video-tab" data-toggle="tab" href="#video" role="tab" aria-controls="video" aria-selected="false">Video</a> </li> </ul> <div class="tab-content" id="myTabContent"> <div class="tab-pane fade show active" id="code" role="tabpanel" aria-labelledby="code-tab"> <pre><code class="language-cpp">// WAP to convert Infix expression to Prefix Expression.
+<!doctype html> <html lang="en"> <meta http-equiv="content-type" content="text/html;charset=utf-8" /> <head>  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link href="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/bootstrap.min.css" rel="stylesheet" /><link href="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/MyStyle.css" rel="stylesheet" /><link rel="stylesheet" href="https://arun457.github.io/Dependencies-Server/DSA-Website/css/prism.css" type="text/css"><link rel="shortcut icon" href="https://arun457.github.io/Dependencies-Server/DSA-Website/images/favicon.ico" type="image/x-icon"><title>Code</title> </head> <body> <div class="p-3"> <ul class="nav nav-tabs" id="myTab" role="tablist"> <li class="nav-item" role="presentation"> <a class="nav-link active" id="code-tab" data-toggle="tab" href="#code" role="tab" aria-controls="Outlines"aria-selected="true">Code</a> </li> <!--Here1-->  <li class="nav-item" role="presentation"> <a class="nav-link" id="code2-tab" data-toggle="tab" href="#code2" role="tab" aria-controls="Outlines" aria-selected="true">Code 2 (Shorter and Optimized)</a> </li> <!--Here1-->        <!--Here2--> <li class="nav-item" role="presentation"> <a class="nav-link" id="video-tab" data-toggle="tab" href="#video" role="tab" aria-controls="video" aria-selected="false">Video</a> </li> </ul> <div class="tab-content" id="myTabContent"> <div class="tab-pane fade show active" id="code" role="tabpanel" aria-labelledby="code-tab"> <pre><code class="language-cpp">// WAP to convert Infix expression to Prefix Expression.
 
 #include &ltiostream&gt
 #include &ltstdlib.h&gt
@@ -204,4 +204,121 @@ int main()
 	}
 
 	return 0;
-}</code></pre> </div> <!--Here1-->     <!--Here2--> <div class="tab-pane fade" id="video" role="tabpanel" aria-labelledby="video-tab"> <h1>Coming Soon</h1> </div> </div> </div> <script src="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/jquery-3.5.1.slim.min.js"></script><script src="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/bootstrap.min.js"></script><script src="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/popper.min.js"></script><script src="https://arun457.github.io/Dependencies-Server/DSA-Website/js/prism.js"></script> </body> </html>
+}</code></pre> </div> <!--Here1-->  <div class="tab-pane fade show" id="code2" role="tabpanel" aria-labelledby="code2-tab"> <pre><code class="language-cpp">// WAP to convert Infix expression to Prefix Expression - (using Stack as ADT).
+
+#include &ltiostream&gt
+#include &ltstdlib.h&gt
+#include &ltstack&gt
+#include &ltcstring&gt
+#include &ltalgorithm&gt
+using namespace std;
+
+bool isoperator(char ch)
+{
+	if ((ch &gt= 'a' &amp&amp ch &lt= 'z') || (ch &gt= 'A' &amp&amp ch &lt= 'Z'))
+		return false;
+	return true;
+}
+
+int precedence(char op)
+{
+	switch (op)
+	{
+	case '^':
+	case '$':
+		return 3;
+
+	case '/':
+	case '*':
+		return 2;
+
+	case ')':
+		return 0;
+
+	default:
+		return 1;
+	}
+}
+
+char associativity(char op)
+{
+	if (op == '^' || op == '$')
+		return 'R';
+	else
+		return 'L';
+}
+
+void operator_handler(char op, stack&ltchar&gt &amps, stack&ltchar&gt &ampstore)
+{
+	if (s.empty())
+		s.push(op);
+	else if (op == ')')
+		s.push(op);
+	else if (op == '(')
+	{
+		while (s.top() != ')')
+		{
+			store.push(s.top());
+			s.pop();
+		}
+		s.pop();
+	}
+	else
+	{
+		if (precedence(op) &gt precedence(s.top()))
+			s.push(op);
+		else if (precedence(op) &lt precedence(s.top()))
+		{
+			store.push(s.top());
+			s.pop();
+			operator_handler(op, s, store);
+		}
+		else
+		{
+			if (associativity(op) == 'L')
+				s.push(op);
+			else
+			{
+				store.push(s.top());
+				s.pop();
+				s.push(op);
+			}
+		}
+	}
+}
+
+int main()
+{
+	system("CLS");
+
+	stack&ltchar&gt s, store;
+	char expression[100], e;
+
+	cout &lt&lt "Enter the Infix Expression: ";
+	cin &gt&gt expression;
+	reverse(expression, expression + strlen(expression));
+
+	cout &lt&lt "\nThe Postfix Expression is: ";
+
+	for (int i = 0; i &lt strlen(expression); i++)
+	{
+		e = expression[i];
+		if (isoperator(e))
+			operator_handler(e, s, store);
+		else
+			store.push(e);
+	}
+
+	while (!s.empty())
+	{
+		store.push(s.top());
+		s.pop();
+	}
+
+	while (!store.empty())
+	{
+		cout &lt&lt store.top();
+		store.pop();
+	}
+	return 0;
+}</code></pre> </div> <!--Here1-->        <!--Here2--> <div class="tab-pane fade" id="video" role="tabpanel" aria-labelledby="video-tab"> <h1>Coming Soon</h1> </div> </div> </div> <script src="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/jquery-3.5.1.slim.min.js"></script><script src="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/bootstrap.min.js"></script><script src="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/popper.min.js"></script><script src="https://arun457.github.io/Dependencies-Server/DSA-Website/js/prism.js"></script> </body> </html>
