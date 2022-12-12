@@ -7,27 +7,31 @@
 #include &ltcstring&gt
 using namespace std;
 
-int calculate(int A, int B, char op)
+float calculate(float A, float B, char op)
 {
-	if (op == '+')
+	switch (op)
+	{
+	case '+':
 		return A + B;
-	else if (op == '-')
+	case '-':
 		return A - B;
-	else if (op == '*')
+	case '*':
 		return A * B;
-	else if (op == '/')
+	case '/':
 		return A / B;
-	else if (op == '^' || op == '$')
+	case '^':
+	case '$':
 		return pow(A, B);
+	}
 }
 
 int main()
 {
 	system("CLS");
 
-	stack&ltint&gt s;
+	stack&ltfloat&gt s;
 	char expression[100], e;
-	int digit = 0, result, A, B, final_result;
+	float digit = 0, result, A, B, final_result;
 
 	cout &lt&lt "Enter the Postfix Expression - (Each Token seperated by comma, E.g: 25,3,1,*,+,95,-) :" &lt&lt endl;
 	cin &gt&gt expression;

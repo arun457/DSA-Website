@@ -7,18 +7,22 @@
 #include &ltcstring&gt
 using namespace std;
 
-int calculate(int A, int B, char op)
+float calculate(float A, float B, char op)
 {
-	if (op == '+')
+	switch (op)
+	{
+	case '+':
 		return A + B;
-	else if (op == '-')
+	case '-':
 		return A - B;
-	else if (op == '*')
+	case '*':
 		return A * B;
-	else if (op == '/')
+	case '/':
 		return A / B;
-	else if (op == '^' || op == '$')
+	case '^':
+	case '$':
 		return pow(A, B);
+	}
 }
 
 void strreverse(char *expression)
@@ -41,11 +45,11 @@ int main()
 {
 	system("CLS");
 
-	stack&ltint&gt s;
+	stack&ltfloat&gt s;
 	char expression[100], e;
-	int digit = 0, result, A, B, final_result;
+	float digit = 0, result, A, B, final_result;
 
-	cout &lt&lt "Enter the Postfix Expression - (Each Token seperated by comma, E.g: 25,3,1,*,+,95,-) :" &lt&lt endl;
+	cout &lt&lt "Enter the Prefix Expression - (Each Token seperated by comma, E.g: 25,3,1,*,+,95,-) :" &lt&lt endl;
 	cin &gt&gt expression;
 	strreverse(expression);
 
@@ -74,6 +78,6 @@ int main()
 	}
 
 	final_result = s.top();
-	cout &lt&lt "The value of postfix expression is: " &lt&lt final_result;
+	cout &lt&lt "The value of Prefix expression is: " &lt&lt final_result;
 	return 0;
 }</code></pre> </div> <!--Here1-->     <!--Here2--> <div class="tab-pane fade" id="video" role="tabpanel" aria-labelledby="video-tab"> <h1>Coming Soon</h1> </div> </div> </div> <script src="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/jquery-3.5.1.slim.min.js"></script><script src="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/bootstrap.min.js"></script><script src="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/popper.min.js"></script><script src="https://arun457.github.io/Dependencies-Server/DSA-Website/js/prism.js"></script> </body> </html>
