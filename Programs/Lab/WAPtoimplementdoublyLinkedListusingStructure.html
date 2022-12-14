@@ -1,4 +1,4 @@
-<!doctype html> <html lang="en"> <meta http-equiv="content-type" content="text/html;charset=utf-8" /> <head>  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link href="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/bootstrap.min.css" rel="stylesheet" /><link href="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/MyStyle.css" rel="stylesheet" /><link rel="stylesheet" href="https://arun457.github.io/Dependencies-Server/DSA-Website/css/prism.css" type="text/css"><link rel="shortcut icon" href="https://arun457.github.io/Dependencies-Server/DSA-Website/images/favicon.ico" type="image/x-icon"><title>Code</title> </head> <body> <div class="p-3"> <ul class="nav nav-tabs" id="myTab" role="tablist"> <li class="nav-item" role="presentation"> <a class="nav-link active" id="code-tab" data-toggle="tab" href="#code" role="tab" aria-controls="Outlines"aria-selected="true">Code</a> </li> <!--Here1-->     <!--Here2--> <li class="nav-item" role="presentation"> <a class="nav-link" id="video-tab" data-toggle="tab" href="#video" role="tab" aria-controls="video" aria-selected="false">Video</a> </li> </ul> <div class="tab-content" id="myTabContent"> <div class="tab-pane fade show active" id="code" role="tabpanel" aria-labelledby="code-tab"> <pre><code class="language-cpp">// WAP to implement Linked List using Structure.
+<!doctype html> <html lang="en"> <meta http-equiv="content-type" content="text/html;charset=utf-8" /> <head>  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link href="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/bootstrap.min.css" rel="stylesheet" /><link href="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/MyStyle.css" rel="stylesheet" /><link rel="stylesheet" href="https://arun457.github.io/Dependencies-Server/DSA-Website/css/prism.css" type="text/css"><link rel="shortcut icon" href="https://arun457.github.io/Dependencies-Server/DSA-Website/images/favicon.ico" type="image/x-icon"><title>Code</title> </head> <body> <div class="p-3"> <ul class="nav nav-tabs" id="myTab" role="tablist"> <li class="nav-item" role="presentation"> <a class="nav-link active" id="code-tab" data-toggle="tab" href="#code" role="tab" aria-controls="Outlines"aria-selected="true">Code</a> </li> <!--Here1-->     <!--Here2--> <li class="nav-item" role="presentation"> <a class="nav-link" id="video-tab" data-toggle="tab" href="#video" role="tab" aria-controls="video" aria-selected="false">Video</a> </li> </ul> <div class="tab-content" id="myTabContent"> <div class="tab-pane fade show active" id="code" role="tabpanel" aria-labelledby="code-tab"> <pre><code class="language-cpp">// WAP to implement doubly Linked List using Structure.
 
 #include &ltiostream&gt
 using namespace std;
@@ -6,7 +6,7 @@ using namespace std;
 struct Node
 {
 	int data;
-	Node *next = NULL;
+	Node *prev = NULL, *next = NULL;
 };
 
 Node *head = NULL, *temp, *previous, *newnode;
@@ -32,6 +32,7 @@ void insert_at_beg()
 	else
 	{
 		newnode-&gtnext = head;
+		head-&gtprev = newnode;
 		head = newnode;
 	}
 }
@@ -51,6 +52,7 @@ void insert_at_end()
 			temp = temp-&gtnext;
 		}
 		temp-&gtnext = newnode;
+		newnode-&gtprev = temp;
 	}
 }
 
@@ -76,8 +78,9 @@ void insert_at_pos()
 	else
 	{
 		temp = head;
-		for (int i = 1; i &lt pos - 1; i++)
+		for (int i = 1; i &lt pos; i++)
 		{
+			previous = temp;
 			temp = temp-&gtnext;
 
 			if (temp == NULL)
@@ -87,8 +90,10 @@ void insert_at_pos()
 			}
 		}
 
-		newnode-&gtnext = temp-&gtnext;
-		temp-&gtnext = newnode;
+		newnode-&gtnext = temp;
+		temp-&gtprev = newnode;
+		previous-&gtnext = newnode;
+		newnode-&gtprev = previous;
 	}
 }
 
@@ -102,6 +107,10 @@ void delete_from_beg()
 	{
 		temp = head;
 		head = temp-&gtnext;
+		if (head != NULL)
+		{
+			head-&gtprev = NULL;
+		}
 		delete temp;
 	}
 }
@@ -157,7 +166,16 @@ void delete_from_pos()
 				return;
 			}
 		}
-		previous-&gtnext = temp-&gtnext;
+
+		if (temp == head)
+		{
+			head = NULL;
+		}
+		else
+		{
+			previous-&gtnext = temp-&gtnext;
+			temp-&gtnext-&gtprev = previous;
+		}
 		delete temp;
 	}
 }
@@ -182,8 +200,8 @@ void display()
 int main()
 {
 	system("CLS");
-	insert_at_end();
 	insert_at_beg();
+	insert_at_end();
 	delete_from_end();
 
 	display();
