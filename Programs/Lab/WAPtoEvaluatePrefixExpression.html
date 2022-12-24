@@ -5,6 +5,7 @@
 #include &ltstack&gt
 #include &ltmath.h&gt
 #include &ltcstring&gt
+#include &ltalgorithm&gt
 using namespace std;
 
 float calculate(float A, float B, char op)
@@ -25,22 +26,6 @@ float calculate(float A, float B, char op)
 	}
 }
 
-void strreverse(char *expression)
-{
-	char tmp[100];
-	int len = strlen(expression);
-
-	for (int i = 0; i &lt len; i++)
-	{
-		tmp[i] = expression[i];
-	}
-
-	for (int i = 0; i &lt len; i++)
-	{
-		expression[i] = tmp[len - 1 - i];
-	}
-}
-
 int main()
 {
 	system("CLS");
@@ -51,7 +36,7 @@ int main()
 
 	cout &lt&lt "Enter the Prefix Expression - (Each Token seperated by comma, E.g: +,9,*,2,6) :" &lt&lt endl;
 	cin &gt&gt expression;
-	strreverse(expression);
+	reverse(expression, expression + strlen(expression));
 
 	for (int i = 0; i &lt strlen(expression); i++)
 	{

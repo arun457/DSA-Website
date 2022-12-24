@@ -4,6 +4,7 @@
 #include &ltiomanip&gt
 #include &ltstdlib.h&gt
 #include &ltcstring&gt
+#include &ltalgorithm&gt
 using namespace std;
 
 class Stack
@@ -178,22 +179,6 @@ void operator_handler(char op, Stack &amps, Stack &ampstorage)
 	}
 }
 
-void strreverse(char *expression)
-{
-	char tmp[100];
-	int len = strlen(expression);
-
-	for (int i = 0; i &lt len; i++)
-	{
-		tmp[i] = expression[i];
-	}
-
-	for (int i = 0; i &lt len; i++)
-	{
-		expression[i] = tmp[len - 1 - i];
-	}
-}
-
 int main()
 {
 	system("CLS");
@@ -208,7 +193,7 @@ int main()
 	cout &lt&lt "Enter the Infix Expression: ";
 	cin &gt&gt expression;
 
-	strreverse(expression);
+	reverse(expression, expression + strlen(expression));
 
 	cout &lt&lt endl
 		 &lt&lt setw(3) &lt&lt "I/P"
