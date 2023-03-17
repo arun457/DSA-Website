@@ -1,0 +1,50 @@
+<!doctype html> <html lang="en"> <meta http-equiv="content-type" content="text/html;charset=utf-8" /> <head>  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link href="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/bootstrap.min.css" rel="stylesheet" /><link href="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/MyStyle.css" rel="stylesheet" /><link rel="stylesheet" href="https://arun457.github.io/Dependencies-Server/DSA-Website/css/prism.css" type="text/css"><link rel="shortcut icon" href="https://arun457.github.io/Dependencies-Server/DSA-Website/images/favicon.ico" type="image/x-icon"><title>Code</title> </head> <body> <div class="p-3"> <ul class="nav nav-tabs" id="myTab" role="tablist"> <li class="nav-item" role="presentation"> <a class="nav-link active" id="code-tab" data-toggle="tab" href="#code" role="tab" aria-controls="Outlines"aria-selected="true">Code</a> </li> <!--Here1-->     <!--Here2--> <li class="nav-item" role="presentation"> <a class="nav-link" id="video-tab" data-toggle="tab" href="#video" role="tab" aria-controls="video" aria-selected="false">Video</a> </li> </ul> <div class="tab-content" id="myTabContent"> <div class="tab-pane fade show active" id="code" role="tabpanel" aria-labelledby="code-tab"> <pre><code class="language-cpp">// WAP to implement Floyd Warshall Algorithm.
+
+#include &ltiostream&gt
+#define v 4
+#define inf 99999
+using namespace std;
+
+int main()
+{
+	system("CLS");
+	int d[v][v] = {{0, 9, -4, inf},
+				   {6, 0, inf, 2},
+				   {inf, 5, 0, inf},
+				   {inf, inf, 1, 0}},
+		dist;
+
+	for (int k = 0; k &lt v; k++)
+	{
+		for (int i = 0; i &lt v; i++)
+		{
+			for (int j = 0; j &lt v; j++)
+			{
+				dist = d[i][k] + d[k][j];
+				if (dist &lt d[i][j])
+				{
+					d[i][j] = dist;
+				}
+			}
+		}
+	}
+
+	cout &lt&lt "The final distance matrix is: " &lt&lt endl;
+	for (int i = 0; i &lt v; i++)
+	{
+		for (int j = 0; j &lt v; j++)
+		{
+			if (d[i][j] != inf)
+			{
+				cout &lt&lt d[i][j] &lt&lt "\t";
+			}
+			else
+			{
+				cout &lt&lt "Inf"
+					 &lt&lt "\t";
+			}
+		}
+		cout &lt&lt endl;
+	}
+	return 0;
+}</code></pre> </div> <!--Here1-->     <!--Here2--> <div class="tab-pane fade" id="video" role="tabpanel" aria-labelledby="video-tab"> <h1>Coming Soon</h1> </div> </div> </div> <script src="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/jquery-3.5.1.slim.min.js"></script><script src="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/bootstrap.min.js"></script><script src="https://arun457.github.io/Dependencies-Server/DSA-Website/Bootstrap/popper.min.js"></script><script src="https://arun457.github.io/Dependencies-Server/DSA-Website/js/prism.js"></script> </body> </html>
