@@ -22,15 +22,13 @@ void createnode()
 
 void copy()
 {
-	head2 = head;
-
-	if (head2 != NULL)
+	if (head != NULL)
 	{
 		temp = head;
 
 		createnode();
 		newnode-&gtdata = temp-&gtdata;
-		head = newnode;
+		head2 = newnode;
 
 		temp = temp-&gtnext;
 		temp2 = head2;
@@ -132,7 +130,7 @@ int main()
 {
 	system("CLS");
 	insert(1);
-	insert(2);
+	insert(55);
 	insert(3);
 	insert(4);
 	temp = head;
